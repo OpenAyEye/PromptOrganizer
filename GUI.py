@@ -98,6 +98,15 @@ def submit_prompt():
 def copy_to_clipboard(text):
     pyperclip.copy(text)
 
+def copy_prompt_to_clipboard():
+    item = tree.selection()[0]
+    values = tree.item(item, "values")
+    prompt = values[3]
+    pyperclip.copy(prompt)
+
+
+
+
 app = tk.Tk()
 app.title("GPT Prompt Organizer")
 
@@ -126,7 +135,8 @@ organize_by_date_button.grid(row=1, column=1, pady=10)
 
 organize_by_category_button = ttk.Button(frame, text="Organize by Category", command=lambda: organize_data("Category"))
 organize_by_category_button.grid(row=1, column=2, pady=10)
-
+copy_button = ttk.Button(frame, text="Copy to Clipboard", command=copy_prompt_to_clipboard)
+copy_button.grid(row=2, column=2, pady=10)
 update_treeview()
 
 # Add entry fields and submit button
