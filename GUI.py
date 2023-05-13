@@ -95,15 +95,18 @@ def submit_prompt():
     update_treeview()
 
 
-def copy_to_clipboard(text):
-    pyperclip.copy(text)
-
 def copy_prompt_to_clipboard():
     item = tree.selection()[0]
     values = tree.item(item, "values")
     prompt = values[3]
     pyperclip.copy(prompt)
 
+def delete_selected_entry():
+    selected_item = tree.selection()[0]
+    name = tree.item(selected_item, "values")[0]
+    data_df.drop(data_df[data_df["Name"] == name].index, inplace=True)
+    data_df.to_excel("GPTPrompts.xlsx", index=False, sheet_name="Sheet1")
+    update_treeview()
 
 
 
@@ -137,6 +140,9 @@ organize_by_category_button = ttk.Button(frame, text="Organize by Category", com
 organize_by_category_button.grid(row=1, column=2, pady=10)
 copy_button = ttk.Button(frame, text="Copy to Clipboard", command=copy_prompt_to_clipboard)
 copy_button.grid(row=2, column=2, pady=10)
+delete_selected_button = ttk.Button(frame, text="Delete Selected", command=delete_selected_entry)
+delete_selected_button.grid(row=1, column=3, pady=10)
+
 update_treeview()
 
 # Add entry fields and submit button
