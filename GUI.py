@@ -141,7 +141,7 @@ organize_by_category_button.grid(row=1, column=2, pady=10)
 copy_button = ttk.Button(frame, text="Copy to Clipboard", command=copy_prompt_to_clipboard)
 copy_button.grid(row=2, column=2, pady=10)
 delete_selected_button = ttk.Button(frame, text="Delete Selected", command=delete_selected_entry)
-delete_selected_button.grid(row=1, column=3, pady=10)
+delete_selected_button.grid(row=3, column=2, pady=10)
 
 update_treeview()
 
