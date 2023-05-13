@@ -35,6 +35,7 @@ def update_treeview():
         tree.insert("", "end", values=(row["Name"], row["Date:Time"], row["Category"], row["Prompt"]))
 
 def submit_prompt():
+    global data_df
     prompt = prompt_entry.get()
     promptname = name_entry.get()
     prompt_text = f"hey the following is a prompt for gpt, would it be best categorized as {categories} please respond only with the quoted category, your responses will be parsed via python and it's much easier if you respond only with one of these {categories} Here is the prompt to categorize: {prompt}"
@@ -73,6 +74,7 @@ def submit_prompt():
 
     # Save the data to an Excel file
     # Read the existing data from the Excel file
+    existing_data = None
     if os.path.exists("GPTPrompts.xlsx"):
         existing_data = pd.read_excel("GPTPrompts.xlsx", sheet_name="Sheet1")
 
@@ -88,7 +90,8 @@ def submit_prompt():
 
     messagebox.showinfo("Success", "Prompt saved successfully.")
     time.sleep(2)
-    data_df = df
+    data_df = load_data()
+
     update_treeview()
 
 
